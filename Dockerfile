@@ -60,6 +60,7 @@ RUN set -ex \
     && pip install ndg-httpsclient \
     && pip install pyasn1 \
     && pip install httplib2 \
+    && pip install git+https://github.com/miro-ka/es2csv.git \
     && pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}]==${AIRFLOW_VERSION} \
     && pip install 'celery[redis]>=4.1.1,<4.2.0' \
     && if [ -n "${PYTHON_DEPS}" ]; then pip install ${PYTHON_DEPS}; fi \
@@ -76,6 +77,12 @@ RUN set -ex \
 
 COPY script/entrypoint.sh /entrypoint.sh
 COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
+
+# This fixes high CPU load in airflow 1.10
+COPY config/af_1.10_high_cpu.patch /root/af_1.10_high_cpu.patch
+RUN patch -d /usr/local/lib/python3.6/site-packages/airflow/ < /root/af_1.10_high_cpu.patch; \
+    rm /root/af_1.10_high_cpu.patch
+
 
 RUN chown -R airflow: ${AIRFLOW_HOME}
 
