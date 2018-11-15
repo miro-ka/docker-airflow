@@ -14,6 +14,7 @@ ENV TERM linux
 # Airflow
 ARG AIRFLOW_VERSION=1.10.0
 ARG AIRFLOW_HOME=/usr/local/airflow
+ENV AIRFLOW_HOME=${AIRFLOW_HOME}
 ARG AIRFLOW_DEPS=""
 ARG PYTHON_DEPS=""
 ENV AIRFLOW_GPL_UNIDECODE yes
@@ -61,6 +62,8 @@ RUN set -ex \
     && pip install pyasn1 \
     && pip install httplib2 \
     && pip install git+https://github.com/miro-ka/es2csv.git \
+    && pip install Flask-Bcrypt \
+    && pip install 'flask-appbuilder==1.11.1' \
     && pip install apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}]==${AIRFLOW_VERSION} \
     && pip install 'celery[redis]>=4.1.1,<4.2.0' \
     && if [ -n "${PYTHON_DEPS}" ]; then pip install ${PYTHON_DEPS}; fi \
