@@ -6,17 +6,26 @@ services:
             - POSTGRES_USER=airflow
             - POSTGRES_PASSWORD=airflow
             - POSTGRES_DB=airflow
+            - PGDATA=/var/lib/postgresql/data/pgdata
+        volumes:
+            - ./pgdata:/var/lib/postgresql/data/pgdata
 
     webserver:
-        image: puckel/docker-airflow:1.10.0-5
+        image: puckel/docker-airflow:latest
         restart: always
         depends_on:
             - postgres
         environment:
             - LOAD_EX=n
             - EXECUTOR=Local
+            - AIRFLOW__WEBSERVER__RBAC=true
+            - POSTGRES_USER=airflow
+            - POSTGRES_PASSWORD=airflow
+            - POSTGRES_DB=airflow
         volumes:
             - ./dags:/usr/local/airflow/dags
+            - ./data:/usr/local/airflow/data
+            - ./config/webserver_config.py:/usr/local/airflow/webserver_config.py:z
             # Uncomment to include custom plugins
             # - ./plugins:/usr/local/airflow/plugins
         ports:
