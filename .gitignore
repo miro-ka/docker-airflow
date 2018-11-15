@@ -6,6 +6,9 @@ Session.vim
 .netrwhist
 *~
 
+# real-config file
+docker-compose-CeleryExecutor.yml
+
 ### SublimeText ###
 # cache files for sublime text
 *.tmlanguage.cache

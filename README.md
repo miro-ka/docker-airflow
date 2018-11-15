@@ -25,12 +25,12 @@ Pull the image from the Docker repository.
 
 Optionally install [Extra Airflow Packages](https://airflow.incubator.apache.org/installation.html#extra-package) and/or python dependencies at build time :
 
-    docker build --rm --build-arg AIRFLOW_DEPS="datadog,dask" -t puckel/docker-airflow .
+    docker build --rm --build-arg AIRFLOW_DEPS="gcp_api,slack" -t puckel/docker-airflow .
     docker build --rm --build-arg PYTHON_DEPS="flask_oauthlib>=0.9" -t puckel/docker-airflow .
 
 or combined
 
-    docker build --rm --build-arg AIRFLOW_DEPS="datadog,dask" --build-arg PYTHON_DEPS="flask_oauthlib>=0.9" -t puckel/docker-airflow .
+    docker build --rm --build-arg AIRFLOW_DEPS="gcp_api,slack" --build-arg PYTHON_DEPS="httplib2>=0.11.3" -t puckel/docker-airflow .
 
 Don't forget to update the airflow images in the docker-compose files to puckel/docker-airflow:latest.
 
