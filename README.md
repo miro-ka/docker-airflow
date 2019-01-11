@@ -32,6 +32,10 @@ or combined
 
     docker build --rm --build-arg AIRFLOW_DEPS="gcp_api,slack" --build-arg PYTHON_DEPS="httplib2>=0.11.3" -t puckel/docker-airflow .
 
+For full docker rebuild
+
+    docker build --no-cache --rm --build-arg AIRFLOW_DEPS="gcp_api,slack" -t puckel/docker-airflow .
+
 Don't forget to update the airflow images in the docker-compose files to puckel/docker-airflow:latest.
 
 ## Usage

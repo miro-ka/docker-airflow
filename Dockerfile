@@ -61,6 +61,7 @@ RUN set -ex \
     && pip install ndg-httpsclient \
     && pip install pyasn1 \
     && pip install httplib2 \
+    && pip install pyod \
     && pip install git+https://github.com/miro-ka/es2csv.git \
     && pip install Flask-Bcrypt \
     && pip install 'flask-appbuilder==1.11.1' \
